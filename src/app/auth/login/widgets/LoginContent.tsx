@@ -29,11 +29,17 @@ const LoginContent = () => {
 
   return (
     <div className="w-full h-[100svh] flex items-center justify-center">
-      <div className="relative hidden md:block md:w-1/2 h-full bg-red-500">
-        <img className="absolute bottom-0 left-0 w-full object-cover" src="/assets/login-doctor.png" alt="doctor login" />
+      <div className="p-8 relative hidden md:block md:w-1/2 h-full bg-primary">
+        <img src="/assets/logo-white-text.png" alt="Logo" />
+        <img
+          className="absolute bottom-0 left-0 w-full object-cover"
+          src="/assets/login-doctor.png"
+          alt="doctor login"
+        />
       </div>
       <div className="p-2 w-full h-full md:w-1/2 flex flex-col gap-4 items-center justify-center">
         <div className="flex flex-col items-center justify-center mb-4">
+          <img src="/assets/logo.png" className="md:hidden mb-6" alt="Logo" />
           <h1 className="text-2xl font-bold">Hi, Doc Welcome Back!!</h1>
           <p className="text-gray-500 text-center">I hope you are doing well</p>
         </div>
