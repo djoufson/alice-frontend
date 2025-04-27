@@ -30,7 +30,9 @@ const LoginContent = () => {
   return (
     <div className="w-full h-[100svh] flex items-center justify-center">
       <div className="p-8 relative hidden md:block md:w-1/2 h-full bg-primary">
-        <img src="/assets/logo-white-text.png" alt="Logo" />
+        <Link href="/">
+          <img src="/assets/logo-white-text.png" alt="Logo" />
+        </Link>
         <img
           className="absolute bottom-0 left-0 w-full object-cover"
           src="/assets/login-doctor.png"
