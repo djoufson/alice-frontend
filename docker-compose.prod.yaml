@@ -3,7 +3,7 @@ services:
     image: djoufson/alice-client:latest
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_BASE_API_URL: http://server:5000 # since the server is running on the same machine as the client
+      NEXT_PUBLIC_BASE_API_URL: http://server:5000
     ports:
       - 8000:3000
     networks:
