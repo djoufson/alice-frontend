@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
-import Image from "next/image";
 import { loginAction } from "../resolvers/action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -24,7 +23,9 @@ const LoginContent = () => {
   const router = useRouter();
   const loginForm = useForm<TLoginFormSchema>(LoginFormResolver);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
   async function onSubmit(values: TLoginFormSchema) {
+    setErrors([]);
     setIsLoading(true);
     const [data, error] = await loginAction(values);
     if (data?.isSuccess) {
@@ -32,10 +33,9 @@ const LoginContent = () => {
       loginForm.reset();
       router.push("/admin/dashboard");
     } else if (data?.isFailure) {
-      console.error(data.error);
-      toast.error(data.error.message);
+      setErrors(data.error?.errors || []);
+      toast.error("Login failed");
     } else {
-      console.error(error);
       toast.error("Login failed");
     }
     setIsLoading(false);
@@ -58,6 +58,15 @@ const LoginContent = () => {
           <img src="/assets/logo.png" className="md:hidden mb-6" alt="Logo" />
           <h1 className="text-2xl font-bold">Hi, Doc Welcome Back!!</h1>
           <p className="text-gray-500 text-center">I hope you are doing well</p>
+        </div>
+        <div className="w-full max-w-[350px]">
+          <ul className="text-red-500">
+            {errors.map((error) => (
+              <li className="list-disc" key={error}>
+                {error}
+              </li>
+            ))}
+          </ul>
         </div>
         <Form {...loginForm}>
           <form
@@ -84,7 +93,11 @@ const LoginContent = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your password" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Enter your password"
+                      {...field}
+                    />
                   </FormControl>
                 </FormItem>
               )}

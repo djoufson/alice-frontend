@@ -1,7 +1,7 @@
 import LoginContent from "./widgets/LoginContent";
 
 const LoginPage = () => {
-  return <LoginContent/>;
+  return <LoginContent />;
 };
 
 export default LoginPage;
