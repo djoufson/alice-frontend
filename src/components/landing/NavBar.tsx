@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 function buildDownloadLink() {
-  const backendUrl = process.env.API_BASE_URL ?? ""
+  const backendUrl = process.env.NEXT_PUBLIC_BASE_API_URL ?? "";
   return `${backendUrl}/download-app`;
 }
 
@@ -19,7 +19,9 @@ export function NavBar() {
         </Link>
         <div className="flex items-center gap-4">
           <Link href="/auth/login">
-            <Button className="cursor-pointer" variant="outline">Join as Doctor</Button>
+            <Button className="cursor-pointer" variant="outline">
+              Join as Doctor
+            </Button>
           </Link>
           <Link href={buildDownloadLink()}>
             <Button className="cursor-pointer">Download App</Button>

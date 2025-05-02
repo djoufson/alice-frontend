@@ -16,15 +16,29 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { loginAction } from "../resolvers/action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const LoginContent = () => {
+  const router = useRouter();
   const loginForm = useForm<TLoginFormSchema>(LoginFormResolver);
   const [isLoading, setIsLoading] = useState(false);
-  function onSubmit(values: TLoginFormSchema) {
+  async function onSubmit(values: TLoginFormSchema) {
     setIsLoading(true);
-    console.log(values);
+    const [data, error] = await loginAction(values);
+    if (data?.isSuccess) {
+      toast.success("Login successful");
+      loginForm.reset();
+      router.push("/admin/dashboard");
+    } else if (data?.isFailure) {
+      console.error(data.error);
+      toast.error(data.error.message);
+    } else {
+      console.error(error);
+      toast.error("Login failed");
+    }
     setIsLoading(false);
-    loginForm.reset();
   }
 
   return (
