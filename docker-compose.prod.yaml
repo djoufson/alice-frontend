@@ -1,0 +1,7 @@
+services:
+  server:
+    image: djoufson/alice-client:latest
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8000:3000
