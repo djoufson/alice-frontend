@@ -2,7 +2,7 @@
 
 import { createServerAction } from "zsa";
 import { LoginFormSchema } from "./schema";
-import LoginResponse from "@/types/AuthTypes/LoginResponse";
+import LoginResponse from "@/types/ApiResponses/LoginResponse";
 import { ProblemDetails } from "@/types/Result/ProblemDetails";
 import { serializeResult } from "@/utils/resultSerializer";
 import { aliceApi } from "@/lib/AliceApi";

@@ -24,4 +24,4 @@ export interface Doctor {
   rate: DoctorRate | null;
   experiences: WorkExperience[];
   consultationFees: number;
-} 
+}

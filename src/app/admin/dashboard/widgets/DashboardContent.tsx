@@ -2,9 +2,8 @@
 
 import AppLoader from "@/components/common/Loader";
 import { GenderDistributionChart } from "@/app/admin/dashboard/widgets/GenderDistributionChart";
-import {
+import GetDashboardResponse, {
   Gender,
-  GetDashboardResponse,
 } from "@/types/ApiResponses/GetDashboardResponse";
 import { ConsultationModel } from "@/types/Models/Consultation";
 import React, { useState } from "react";

@@ -1,8 +1,10 @@
-import LoginResponse from "@/types/AuthTypes/LoginResponse";
+import LoginResponse from "@/types/ApiResponses/LoginResponse";
 import { ProblemDetails } from "@/types/Result/ProblemDetails";
 import { ApiRoutes } from "@/utils/ApiRoutes";
 import { HttpClient } from "./HttpClient";
 import { envConfig } from "./constants";
+import { Result } from "@/types/Result";
+import UserResponse from "@/types/ApiResponses/UserResponse";
 
 export default class AliceApiClient {
   private http: HttpClient;
@@ -19,12 +21,19 @@ export default class AliceApiClient {
     this.http.clearToken();
   }
 
-  async login(email: string, password: string) {
+  async login(
+    email: string,
+    password: string
+  ): Promise<Result<LoginResponse, ProblemDetails>> {
     return this.http.post<
       { email: string; password: string },
       LoginResponse,
       ProblemDetails
     >(ApiRoutes.auth.login, { email, password });
+  }
+
+  async getCurrentUser(): Promise<Result<UserResponse, ProblemDetails>> {
+    return this.http.get<UserResponse, ProblemDetails>(ApiRoutes.auth.me);
   }
 }
 

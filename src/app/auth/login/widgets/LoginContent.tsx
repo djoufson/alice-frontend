@@ -18,7 +18,8 @@ import { Loader2 } from "lucide-react";
 import { loginAction } from "../resolvers/action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-
+import { AppRoutes } from "@/utils/AppRoutes";
+import { aliceApi } from "@/lib/AliceApi";
 const LoginContent = () => {
   const router = useRouter();
   const loginForm = useForm<TLoginFormSchema>(LoginFormResolver);
@@ -29,13 +30,26 @@ const LoginContent = () => {
     setIsLoading(true);
     const [data, error] = await loginAction(values);
     if (data?.isSuccess) {
-      toast.success("Login successful");
       loginForm.reset();
-      router.push("/admin/dashboard");
+      aliceApi.setToken(data.value!.token);
+      const userData = await aliceApi.getCurrentUser();
+      if (userData?.isSuccess) {
+        if (userData.value.isDoctor) {
+          toast.success("Login successful");
+          router.push(AppRoutes.admin.dashboard);
+        } else {
+          toast.error("This app is for doctors only");
+          router.push(AppRoutes.landing.home);
+        }
+      } else {
+        console.error(userData?.error);
+        toast.error("Login failed");
+      }
     } else if (data?.isFailure) {
       setErrors(data.error?.errors || []);
       toast.error("Login failed");
     } else {
+      console.error(error);
       toast.error("Login failed");
     }
     setIsLoading(false);

@@ -15,7 +15,7 @@ export interface GenderDistribution {
   percentage: number;
 }
 
-export interface GetDashboardResponse {
+export default interface GetDashboardResponse {
   totalConsultations: number;
   totalStars: number;
   ageDistribution: AgeDistribution[];
