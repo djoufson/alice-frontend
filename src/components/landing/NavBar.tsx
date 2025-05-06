@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-
+import { AppRoutes } from "@/utils/AppRoutes";
 import { Button } from "../ui/button";
 
 function buildDownloadLink() {
@@ -14,11 +14,11 @@ export function NavBar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 shadow bg-white">
       <div className="container flex items-center justify-between p-2">
-        <Link href="/" className="text-2xl font-bold">
+        <Link href={AppRoutes.landing.home} className="text-2xl font-bold">
           <img src="/assets/logo.png" alt="logo" className="w-auto h-full" />
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/auth/login">
+          <Link href={AppRoutes.auth.login}>
             <Button className="cursor-pointer" variant="outline">
               Join as Doctor
             </Button>

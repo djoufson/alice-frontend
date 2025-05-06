@@ -11,27 +11,27 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { AppRoutes } from "@/utils/AppRoutes";
 
-// Menu items.
 const items = [
   {
     title: "Dashboard",
-    url: "/admin/dashboard",
+    url: AppRoutes.admin.dashboard,
     icon: ChartArea,
   },
   {
     title: "Appointments",
-    url: "/admin/appointments",
+    url: AppRoutes.admin.appointments,
     icon: Calendar,
   },
   {
     title: "Messages",
-    url: "/admin/messages",
+    url: AppRoutes.admin.messages,
     icon: Inbox,
   },
   {
     title: "Settings",
-    url: "/admin/settings",
+    url: AppRoutes.admin.settings,
     icon: Settings,
   },
 ];

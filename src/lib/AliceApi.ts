@@ -1,10 +1,10 @@
 import LoginResponse from "@/types/AuthTypes/LoginResponse";
 import { ProblemDetails } from "@/types/Result/ProblemDetails";
-import { Urls } from "@/utils/Urls";
+import { ApiRoutes } from "@/utils/ApiRoutes";
 import { HttpClient } from "./HttpClient";
+import { envConfig } from "./constants";
 
-// Example usage for login endpoint
-export class AliceApiClient {
+export default class AliceApiClient {
   private http: HttpClient;
 
   constructor(baseUrl: string) {
@@ -24,8 +24,8 @@ export class AliceApiClient {
       { email: string; password: string },
       LoginResponse,
       ProblemDetails
-    >(Urls.auth.login, { email, password });
+    >(ApiRoutes.auth.login, { email, password });
   }
 }
 
-export const aliceApi = new AliceApiClient("");
+export const aliceApi = new AliceApiClient(envConfig.NEXT_PUBLIC_BASE_API_URL!);
