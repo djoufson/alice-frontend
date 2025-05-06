@@ -9,7 +9,7 @@ export default function NavBar() {
         <img src="/assets/logo.png" alt="Alice Care" />
       </div>
       <SearchBar />
-      {/* <Profile /> */}
+      <Profile />
     </div>
   );
 }
