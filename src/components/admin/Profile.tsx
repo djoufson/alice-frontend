@@ -8,19 +8,16 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { useRequireAuth } from "@/hooks/useRequireAuth";
 
 export default function Profile() {
+  const user = useRequireAuth();
   const signOut = () => {
     console.log("signing out");
   };
@@ -32,13 +29,20 @@ export default function Profile() {
             <Avatar>
               <AvatarImage
                 className="rounded-full aspect-square w-6"
-                src="https://github.com/djoufson.png"
+                src={user?.doctor?.imageUrl ?? ""}
               />
-              <AvatarFallback>DC</AvatarFallback>
+              <AvatarFallback>
+                {user?.doctor?.firstName?.charAt(0)}
+                {user?.doctor?.lastName?.charAt(0)}
+              </AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-start">
-              <p className="text-sm font-bold">Dr. Djoufson Che</p>
-              <p className="text-xs text-gray-500">Generalist</p>
+              <p className="text-sm font-bold">
+                Dr. {user?.doctor?.firstName} {user?.doctor?.lastName}
+              </p>
+              <p className="text-xs text-gray-500">
+                {user?.doctor?.specialization}
+              </p>
             </div>
           </div>
         </Button>

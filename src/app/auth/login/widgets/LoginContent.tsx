@@ -15,7 +15,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
-import { loginAction } from "../resolvers/action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { AppRoutes } from "@/utils/AppRoutes";
@@ -28,28 +27,13 @@ const LoginContent = () => {
   async function onSubmit(values: TLoginFormSchema) {
     setErrors([]);
     setIsLoading(true);
-    const [data, error] = await loginAction(values);
+    const data = await aliceApi.login(values.email, values.password);
     if (data?.isSuccess) {
       loginForm.reset();
-      aliceApi.setToken(data.value!.token);
-      const userData = await aliceApi.getCurrentUser();
-      if (userData?.isSuccess) {
-        if (userData.value.isDoctor) {
-          toast.success("Login successful");
-          router.push(AppRoutes.admin.dashboard);
-        } else {
-          toast.error("This app is for doctors only");
-          router.push(AppRoutes.landing.home);
-        }
-      } else {
-        console.error(userData?.error);
-        toast.error("Login failed");
-      }
-    } else if (data?.isFailure) {
-      setErrors(data.error?.errors || []);
-      toast.error("Login failed");
+      toast.success("Login successful");
+      router.push(AppRoutes.admin.dashboard);
     } else {
-      console.error(error);
+      setErrors(data.error?.errors || []);
       toast.error("Login failed");
     }
     setIsLoading(false);

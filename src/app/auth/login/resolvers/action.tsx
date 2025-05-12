@@ -6,8 +6,6 @@ import LoginResponse from "@/types/ApiResponses/LoginResponse";
 import { ProblemDetails } from "@/types/Result/ProblemDetails";
 import { serializeResult } from "@/utils/resultSerializer";
 import { aliceApi } from "@/lib/AliceApi";
-import { cookies } from "next/headers";
-import { CookieKeys } from "@/utils/CookieKeys";
 
 export const loginAction = createServerAction()
   .input(LoginFormSchema)
@@ -18,11 +16,6 @@ export const loginAction = createServerAction()
       ReturnType<typeof serializeResult<LoginResponse, ProblemDetails>>
     > => {
       const result = await aliceApi.login(input.email, input.password);
-      if (result.isSuccess) {
-        const cookieStore = await cookies();
-        aliceApi.setToken(result.value.token);
-        cookieStore.set(CookieKeys.auth.token, result.value.token);
-      }
       return serializeResult(result);
     }
   );
